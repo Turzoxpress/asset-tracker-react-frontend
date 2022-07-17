@@ -1,0 +1,14 @@
+[
+  {
+    "_id": "62d3f7274af09ab571bf29d5",
+    "name": "Pendrivce",
+    "description": "sdfsdfsdfdsf",
+    "owner_id": "62d3ec3670992ddd3e90afdb",
+    "owner_name": "Mahbubur Rahman Turzo",
+    "borrower_name": "Rajeeb",
+    "status": "borrowed",
+    "created_at": "2022-07-17T11:48:55.000Z",
+    "modified_at": "2022-07-17T11:48:55.000Z",
+    "__v": 0
+  }
+]
