@@ -1,7 +1,6 @@
 {
-  "total": 0,
-  "created": 0,
-  "working": 0,
-  "completed": 0,
+  "total": 6,
+  "borrowed": 3,
+  "returned": 3,
   "deleted": 0
 }

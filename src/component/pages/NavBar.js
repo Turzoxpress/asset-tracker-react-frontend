@@ -22,9 +22,9 @@ export default function Navbar() {
     navigate("/tasks");
   };
 
-  const navigateAddTask = () => {
+  const navigateAddItem = () => {
     // 👇️ navigate to /
-    navigate("/add_task");
+    navigate("/add_item");
   };
 
   const navigateRegister = () => {
@@ -40,6 +40,11 @@ export default function Navbar() {
   const navigateManageUsers = () => {
     // 👇️ navigate to /
     navigate("/manage_users");
+  };
+
+  const navigateMyItems = () => {
+    // 👇️ navigate to /
+    navigate("/my_items");
   };
 
   const handleLogout = (id) => {
@@ -58,54 +63,6 @@ export default function Navbar() {
   //console.log("Role found in navbar : " + role);
 
   //------------------
-  let navigation = null;
-  if (role === "admin" || role === "employee") {
-    navigation = [
-      { name: "Home", href: constants.frontend_server + "/", current: false },
-      {
-        name: "Tasks",
-        href: constants.frontend_server + "/tasks",
-        onclick: { navigateLogin },
-        current: false,
-      },
-      {
-        name: "Add Task",
-        href: constants.frontend_server + "/add_task",
-        current: false,
-      },
-      {
-        name: "Register",
-        href: constants.frontend_server + "/register",
-        current: false,
-      },
-      {
-        name: "Log In",
-        href: constants.frontend_server + "/login",
-        current: false,
-      },
-    ];
-  } else {
-    navigation = [
-      { name: "Home", href: constants.frontend_server + "/", current: false },
-      {
-        name: "Tasks",
-        href: constants.frontend_server + "/tasks",
-        onclick: { navigateLogin },
-        current: false,
-      },
-      // { name: "Add Task", href: "/add_task", current: false },
-      {
-        name: "Register",
-        href: constants.frontend_server + "/register",
-        current: false,
-      },
-      {
-        name: "Log In",
-        href: constants.frontend_server + "/login",
-        current: false,
-      },
-    ];
-  }
 
   // const location = useLocation();
   // const currentPath = location.pathname;
@@ -170,13 +127,23 @@ export default function Navbar() {
                     </button> */}
 
                     {role === "admin" || role === "employee" ? (
-                      <button
-                        type="button"
-                        onClick={navigateAddTask}
-                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                      >
-                        Add Task
-                      </button>
+                      <div>
+                        <button
+                          type="button"
+                          onClick={navigateMyItems}
+                          className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                        >
+                          My Items
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={navigateAddItem}
+                          className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                        >
+                          Add Item
+                        </button>
+                      </div>
                     ) : (
                       <div></div>
                     )}
@@ -331,27 +298,6 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-
-          <Disclosure.Panel className="sm:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                    "block px-3 py-2 rounded-md text-base font-medium"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
-            </div>
-          </Disclosure.Panel>
         </>
       )}
     </Disclosure>

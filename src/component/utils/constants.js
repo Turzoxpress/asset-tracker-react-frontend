@@ -14,34 +14,34 @@ module.exports = {
   //   utils.authenticateToken,
   //   controllers.asset.post.
   // );
-  
+
   // router.get(
   //   "/",
   //   utils.authenticateToken,
   //   controllers.asset.post.
   // );
-  
+
   // router.post(
   //   "/",
   //   utils.authenticateToken,
   //   controllers.asset.post.
   // );
-  
+
   // router.post(
   //   "/",
   //   utils.authenticateToken,
   //   controllers.asset.post.
   // );
-  
+
   // router.get("/", controllers.asset.post.);
 
   addNewItem: "/asset/add-item",
   getAllItems: "/asset/get-items",
   changeItemStatus: "/asset/change-item-status",
   deleteItem: "/asset/delete-item",
+  getTotalItemCount: "/asset/get-item-count",
 
   addTagetAllItemsGlobalsk: "/asset/get-items-global",
-  
 
   authorized_admin_emails: [
     "turzoxpress@gmail.com",

@@ -4,7 +4,7 @@ import CloseButton from "react-bootstrap/CloseButton";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
-const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn, role }) => {
+const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn, role, page }) => {
   // console.log("isLoggedIn value ToDo : " + isLoggedIn);
 
   const my_id = todo._id;
@@ -29,7 +29,7 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn, role }) => {
     handleDelete(e.currentTarget.id);
   };
 
-  const options = ["created", "working", "completed"];
+  const options = ["borrowed", "returned"];
   let defaultOption = options[0];
 
   for (let i = 0; i < options.length; i++) {
@@ -70,14 +70,11 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn, role }) => {
   let workingStatus = "NA";
   let statusTextClass = "text-secondary";
   if (todo.status) {
-    if (todo.status === "created") {
-      workingStatus = "ToDo";
+    if (todo.status === "borrowed") {
+      workingStatus = "Borrowed";
       statusTextClass = "text-primary";
-    } else if (todo.status === "working") {
-      workingStatus = "In Progress";
-      statusTextClass = "text-warning";
-    } else if (todo.status === "completed") {
-      workingStatus = "Completed";
+    } else if (todo.status === "returned") {
+      workingStatus = "Returned";
       statusTextClass = "text-success";
     } else if (todo.status === "deleted") {
       workingStatus = "Deleted";
@@ -96,11 +93,12 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn, role }) => {
           </p>
 
           <div className="card-body">
-            {isLoggedIn && (role === "admin" || role === "employee") ? (
+            {isLoggedIn &&
+            (role === "admin" || role === "employee") &&
+            page === "user" ? (
               <div>
                 <div className="right_button_align">
                   <div className="drop_down_div m-2">
-                    {/* <label for="input-select">Example Select</label> */}
                     <select
                       className="form-control"
                       id={my_id}
@@ -108,9 +106,8 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn, role }) => {
                       value={defaultOption}
                       onChange={handleClick}
                     >
-                      <option value={options[0]}>ToDo</option>
-                      <option value={options[1]}>In Progress</option>
-                      <option value={options[2]}>Completed</option>
+                      <option value={options[0]}>Borrowed</option>
+                      <option value={options[1]}>Returned</option>
                     </select>
                   </div>
                 </div>
@@ -120,25 +117,36 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn, role }) => {
             )}
 
             <h3 className="card-title card_title p-2">
-              <b>{todo.task_name}</b>
+              <b>{todo.name}</b>
             </h3>
             <p className="card-text card_title p-2 card_description_p">
-              {todo.task_description}
+              {todo.description}
             </p>
 
             <div class="footer_div_custom">
               <div class="row">
                 <div class="col-sm">
                   <p className="footer_div_p footer_text_size  p-2 rounded">
-                    <bold className="footer_div_title_text">Created: </bold>
+                    <bold className="footer_div_title_text">Borrowed at: </bold>
                     {created_at}
                   </p>
                 </div>
 
                 <div class="col-sm">
                   <p className="footer_div_p footer_text_size  p-2 rounded">
-                    <bold className="footer_div_title_text">Created By: </bold>
-                    {created_by}
+                    <bold className="footer_div_title_text text-danger">
+                      Borrower:{" "}
+                    </bold>
+                    {todo.borrower_name}
+                  </p>
+                </div>
+
+                <div class="col-sm">
+                  <p className="footer_div_p footer_text_size  p-2 rounded">
+                    <bold className="footer_div_title_text text-success">
+                      Owner:{" "}
+                    </bold>
+                    {todo.owner_name}
                   </p>
                 </div>
 
@@ -146,13 +154,6 @@ const ToDo = ({ todo, handleToggle, handleDelete, isLoggedIn, role }) => {
                   <p className="footer_div_p footer_text_size  p-2 rounded">
                     <bold className="footer_div_title_text">Modified: </bold>
                     {modified_at}
-                  </p>
-                </div>
-
-                <div class="col-sm">
-                  <p className="footer_div_p footer_text_size  p-2 rounded">
-                    <bold className="footer_div_title_text">Modified By: </bold>
-                    {modified_by}
                   </p>
                 </div>
 

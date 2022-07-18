@@ -7,6 +7,7 @@ const ToDoList = ({
   handleDelete,
   isLoggedIn,
   role,
+  page
 }) => {
   // console.log("isLoggedIn value ToDoList : " + isLoggedIn);
   return (
@@ -19,6 +20,7 @@ const ToDoList = ({
             handleDelete={handleDelete}
             isLoggedIn={isLoggedIn}
             role={role}
+            page={page}
           />
         );
       })}

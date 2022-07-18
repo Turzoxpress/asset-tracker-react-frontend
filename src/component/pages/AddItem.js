@@ -30,13 +30,14 @@ export default function (props) {
 
   const addNewTask = () => {
     let titleTxt = document.getElementById("title").value;
+    let borrowerxt = document.getElementById("borrower").value;
     let descriptionTxt = document.getElementById("description").value;
 
-    if (titleTxt.length < 1 || descriptionTxt.length < 1) {
+    if (titleTxt.length < 1 || borrowerxt.length < 1) {
       //------- Delete confirmation
       const options = {
         title: "Invalid Input",
-        message: "Please provide Title and Description first!",
+        message: "Please provide Item Name and Borrower first!",
         buttons: [
           {
             label: "Ok",
@@ -60,12 +61,12 @@ export default function (props) {
 
       axios({
         method: "post",
-        url: constants.backend_server + constants.addTask,
+        url: constants.backend_server + constants.addNewItem,
         headers: { Authorization: `Bearer ${token}` },
         data: {
-          task_name: titleTxt,
-          task_description: descriptionTxt,
-          created_by: name,
+          name: titleTxt,
+          borrower_name: borrowerxt,
+          description: descriptionTxt,
         },
       })
         .then(function (response) {
@@ -87,7 +88,7 @@ export default function (props) {
           } else {
             if (response.data.status === 200) {
               //window.location.reload(false);
-              alert(response.data.message);
+              alert("Item added successfully!");
               window.location.reload(false);
               //document.getElementById(id).style.visibility = "hidden";
             } else {
@@ -132,16 +133,27 @@ export default function (props) {
               <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div className="card">
                   <h5 className="card-header container_center_item">
-                    <b> Add New Task</b>
+                    <b> Add New Item</b>
                   </h5>
                   <div className="card-body">
                     <form>
                       <div className="form-group">
                         <label for="inputText3" className="col-form-label">
-                          Title
+                          Item Name *
                         </label>
                         <input
                           id="title"
+                          type="text"
+                          className="form-control"
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label for="inputText3" className="col-form-label">
+                          Borrower *
+                        </label>
+                        <input
+                          id="borrower"
                           type="text"
                           className="form-control"
                         />

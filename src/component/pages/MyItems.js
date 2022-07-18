@@ -55,18 +55,23 @@ export default function () {
 
   let taskStatus = localStorage.getItem("taskStatus");
   if (!taskStatus) {
-    taskStatus = "working";
+    taskStatus = "borrowed";
   }
 
   console.log("Tasks status : " + taskStatus);
 
   const loadTaskData = () => {
+    // alert(status);
+    // return;
     //---------------
     setLoading(true);
     axios({
-      method: "get",
-      url: constants.backend_server + constants.addTagetAllItemsGlobalsk,
-      headers: {},
+      method: "post",
+      url: constants.backend_server + constants.getAllItems,
+      headers: { Authorization: `Bearer ${token}` },
+      data: {
+        status: taskStatus,
+      },
     })
       .then(function (response) {
         console.log(response.data);
@@ -106,8 +111,8 @@ export default function () {
     console.log("Entered task count............");
     axios({
       method: "get",
-      url: constants.backend_server + constants.getTotalTaskCount,
-      headers: {},
+      url: constants.backend_server + constants.getTotalItemCount,
+      headers: { Authorization: `Bearer ${token}` },
     })
       .then(function (response) {
         if (response.data.status === 200) {
@@ -261,18 +266,14 @@ export default function () {
     window.location.reload(false);
   };
 
-  const handleWorkingButtonClick = () => {
-    localStorage.setItem("taskStatus", "working");
+  //enum: ["", "", ""],
+  const handleBorrowedButtonClick = () => {
+    localStorage.setItem("taskStatus", "borrowed");
     window.location.reload(false);
   };
 
-  const handleToDoButtonClick = () => {
-    localStorage.setItem("taskStatus", "created");
-    window.location.reload(false);
-  };
-
-  const handleCompletedButtonClick = () => {
-    localStorage.setItem("taskStatus", "completed");
+  const handleReturnedButtonClick = () => {
+    localStorage.setItem("taskStatus", "returned");
     window.location.reload(false);
   };
 
@@ -303,38 +304,28 @@ export default function () {
             <button onClick={navigateLogin}>Login</button>
           </div> */}
 
-          {/* <div class="container">
-
+          <div class="container">
             <div class="row">
               <div class="col-sm">
                 <button
                   type="button"
-                  className="btn btn-warning m-1 btn-block text-white"
-                  onClick={handleWorkingButtonClick}
-                >
-                  In Progress <b>{" (" + taskCounter.working + ")"}</b>
-                </button>
-              </div>
-              <div class="col-sm">
-                <button
-                  type="button"
                   className="btn btn-primary m-1 btn-block"
-                  onClick={handleToDoButtonClick}
+                  onClick={handleBorrowedButtonClick}
                 >
-                  ToDo <b>{" (" + taskCounter.created + ")"}</b>
+                  Borrowed <b>{" (" + taskCounter.borrowed + ")"}</b>
                 </button>
               </div>
               <div class="col-sm">
                 <button
                   type="button"
                   className="btn btn-success m-1 btn-block"
-                  onClick={handleCompletedButtonClick}
+                  onClick={handleReturnedButtonClick}
                 >
-                  Completed <b>{" (" + taskCounter.completed + ")"}</b>
+                  Returned <b>{" (" + taskCounter.returned + ")"}</b>
                 </button>
               </div>
 
-              {isLoggedIn && role === "admin" ? (
+              {/* {isLoggedIn && (role === "admin" || role === "employee") ? (
                 <div class="col-sm">
                   <div>
                     <button
@@ -348,9 +339,9 @@ export default function () {
                 </div>
               ) : (
                 <div></div>
-              )}
+              )} */}
             </div>
-          </div> */}
+          </div>
 
           <div>
             <ToDoList
@@ -359,7 +350,7 @@ export default function () {
               handleDelete={handleDelete}
               isLoggedIn={isLoggedIn}
               role={role}
-              page = "home"
+              page = "user"
             />
           </div>
         </div>
