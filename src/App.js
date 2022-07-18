@@ -10,9 +10,9 @@ import MyItems from "./component/pages/MyItems";
 
 function App() {
   return (
-    //basename="/apps/task/"
-    //"homepage": "https://brlbd.com/apps/task/",
-    <BrowserRouter>
+    //basename="/apps/asset/"
+    //"homepage": "https://brlbd.com/apps/asset/",
+    <BrowserRouter basename="/apps/asset/">
       <Routes>
         <Route path="/" element={<Assets />} />
         <Route path="/login" element={<Login />} />

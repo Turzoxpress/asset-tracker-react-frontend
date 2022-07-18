@@ -1,5 +1,5 @@
 module.exports = {
-  backend_server: "http://localhost:5002",
+  backend_server: "https://www.eventby.xyz/backend/apps/asset",
 
   frontend_server: "https://brlbd.com/apps/task/",
 
